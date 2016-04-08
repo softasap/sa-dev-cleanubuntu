@@ -12,3 +12,20 @@ In particular:
   - installs console tools
   - optionally - installs virtualbox
   - optionally - installs vagrant
+
+
+
+Console tools installed:
+
+  - mc   
+  - jq
+  - gitflow
+  - multitail
+  - unzip
+  - p7zip
+  - terminator
+  - sublimetext2
+  - atom
+  - zeal
+  - googlechrome
+
