@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: vyacheslav voronenko
-  description: Cleanups default ubuntu 14.04 install: recipe for visual ubuntu boxes used for provision testing, also usable for developer's note book installation.
+  description: Cleanups default ubuntu 14.04 install - recipe for visual ubuntu boxes used for provision testing, also usable for developer's notebook installation.
   company: http://www.voronenko.info/
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
