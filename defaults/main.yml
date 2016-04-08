@@ -1,15 +1,13 @@
 ---
 # defaults file for sa-dev-worktools
 
-  option_cleanupubuntu: true 
+  option_cleanupubuntu: true
   option_worktools: true
-  option_oracle_virtualbox: false  
-  option_vagrant: false  tasks_worktools.yml
+  option_oracle_virtualbox: false
+  option_vagrant: false
 
 
   oracle_vbox_version: 4.3
   vagrant_version: 1.7.4
 
   atom_packages: ["angularjs","atom-css-comb", "meteor-api", "emmet", "file-icons", "tag", "expand-region", "atom-alignment", "atom-beautify", "minimap", "set-syntax", "jshint", "linter", "linter-jscs", "jscs-fixer", "highlight-line", "highlight-column", "autocomplete-plus", "toggle-quotes", "monokai"]
-
-
