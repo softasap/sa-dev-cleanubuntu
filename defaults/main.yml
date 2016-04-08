@@ -1,0 +1,12 @@
+---
+# defaults file for sa-dev-worktools
+
+  option_cleanupubuntu: true 
+  option__worktools: true
+  option_oracle_virtualbox: false  
+  option_vagrant: false  tasks_worktools.yml
+
+
+  oracle_vbox_version: 4.3
+  vagrant_version: 1.7.4
+

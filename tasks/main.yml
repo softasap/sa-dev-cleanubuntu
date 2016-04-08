@@ -1,0 +1,14 @@
+---
+# tasks file for sa-dev-worktools
+  - include: tasks_cleanupubuntu.yml
+    when: option_cleanupubuntu
+
+  - include: tasks_worktools.yml
+    when: option_worktools
+
+  - include: tasks_oracle_virtualbox.yml
+    when: option_oracle_virtualbox
+
+  - include: tasks_vagrant:
+    when: option_vagrant
+

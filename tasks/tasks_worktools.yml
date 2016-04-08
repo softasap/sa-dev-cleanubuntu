@@ -1,0 +1,173 @@
+  - name: Worktools | Midnight Commander
+    apt: state=present pkg=mc
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | JQ
+    apt: state=present pkg=jq
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | Git-Flow
+    apt: state=present pkg=git-flow
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | MultiTail https://www.vanheusden.com/
+    apt: state=present pkg=multitail
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+
+  - name: Worktools | action "open in terminal" for Nautilus
+    apt: state=present pkg=nautilus-open-terminal
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | unzip
+    apt: state=present pkg=unzip
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | p7zip
+    apt: name=p7zip-full state=latest
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | terminator
+    apt: name=terminator state=latest
+    sudo: yes
+    tags:
+      -worktools
+      -setup
+
+  - name: Worktools | Check if sublime is installed
+    command: dpkg-query -W sublime-text
+    register: sublime_check_deb
+    failed_when: sublime_check_deb.rc > 1
+    changed_when: sublime_check_deb.rc == 1
+    tags:
+      -sublime
+      -setup
+
+
+  - name: Worktools | Add sublime ppa
+    apt_repository: repo=ppa:webupd8team/sublime-text-2 state=present
+    sudo: yes
+    when: sublime_check_deb.rc == 1
+    tags:
+      -sublime
+      -setup
+
+  - name: Worktools | Install Sublime
+    apt: update_cache=yes pkg=sublime-text state=installed
+    sudo: yes
+    when: sublime_check_deb.rc == 1
+    tags:
+      -atom
+      -setup
+
+  - name: Worktools | Check if atom is installed
+    command: dpkg-query -W atom
+    register: atom_check_deb
+    failed_when: atom_check_deb.rc > 1
+    changed_when: atom_check_deb.rc == 1
+    tags:
+      -atom
+      -setup
+
+
+  - name: Worktools | Add atom ppa
+    apt_repository: repo=ppa:webupd8team/atom state=present
+    sudo: yes
+    when: atom_check_deb.rc == 1
+    tags:
+      -atom
+      -setup
+
+  - name: Worktools | Install atom
+    apt: update_cache=yes pkg=atom state=installed
+    when: atom_check_deb.rc == 1
+    sudo: yes
+    tags:
+      -atom
+      -setup
+
+  - name: Worktools | Install atom packages
+    shell: apm install {{item}}
+    with_items: "{{atom_packages}}"
+    when: atom_packages is defined
+    tags:
+      -atom
+      -setup
+
+  - name: Worktools | Check if zeal is installed
+    command: dpkg-query -W zeal
+    register: zeal_check_deb
+    failed_when: zeal_check_deb.rc > 1
+    changed_when: zeal_check_deb.rc == 1
+    tags:
+      -zeal
+      -setup
+
+
+  - name: Worktools | Add zeal ppa
+    apt_repository: repo=ppa:zeal-developers/ppa state=present
+    sudo: yes
+    when: zeal_check_deb.rc == 1
+    tags:
+      -zeal
+      -setup
+
+  - name: Worktools | Install zeal
+    apt: update_cache=yes pkg=zeal state=installed
+    sudo: yes
+    tags:
+      -zeal
+      -setup
+
+  - name: Worktools | Check google apt
+    command: test -f /etc/apt/sources.list.d/google-chrome.list
+    register: google_apt_exists
+    ignore_errors: True
+    tags:
+      -chrome
+      -setup
+
+
+  - name: Worktools | Add Google Chrome key
+    shell: wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    sudo: yes
+    when: google_apt_exists.rc == 1
+    tags:
+      -chrome
+      -setup
+
+  - name: Worktools | Add Google Chrome repo
+    copy: content="deb http://dl.google.com/linux/chrome/deb/ stable main" dest=/etc/apt/sources.list.d/google-chrome.list owner=root group=root mode=644
+    when: google_apt_exists.rc == 1
+    sudo: yes
+    tags:
+      -chrome
+      -setup
+
+  - name: Install Google Chrome
+    apt: update_cache=yes pkg=google-chrome-stable state=installed
+    sudo: yes
+    tags:
+      -chrome
+      -setup
