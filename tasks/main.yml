@@ -9,6 +9,6 @@
   - include: tasks_oracle_virtualbox.yml
     when: option_oracle_virtualbox
 
-  - include: tasks_vagrant:
+  - include: tasks_vagrant.yml
     when: option_vagrant
 
